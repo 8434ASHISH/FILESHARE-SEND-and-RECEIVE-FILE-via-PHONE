@@ -1,0 +1,813 @@
+/* ==================== RESET & VARIABLES ==================== */
+:root {
+    --primary: #6C63FF;
+    --primary-dark: #5A52D5;
+    --secondary: #FF6584;
+    --success: #00C853;
+    --warning: #FFD600;
+    --danger: #FF1744;
+    --dark: #1A1A2E;
+    --darker: #16213E;
+    --light: #F5F5F5;
+    --white: #FFFFFF;
+    --gray: #B0B0B0;
+    --border-radius: 16px;
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: var(--white);
+    -webkit-tap-highlight-color: transparent;
+    overflow-x: hidden;
+}
+
+/* ==================== LOADING SCREEN ==================== */
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--darker);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.5s, visibility 0.5s;
+}
+
+.loading-screen.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loader {
+    text-align: center;
+}
+
+.loader-icon {
+    font-size: 64px;
+    animation: bounce 1s infinite;
+}
+
+.loader p {
+    margin-top: 20px;
+    font-size: 16px;
+    color: var(--gray);
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+/* ==================== APP CONTAINER ==================== */
+.app-container {
+    max-width: 480px;
+    margin: 0 auto;
+    min-height: 100vh;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+}
+
+/* ==================== HEADER ==================== */
+.app-header {
+    padding: 30px 20px 20px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.logo-icon {
+    font-size: 40px;
+    animation: float 3s ease-in-out infinite;
+}
+
+.logo h1 {
+    font-size: 32px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #fff, #e0e0e0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.tagline {
+    font-size: 14px;
+    color: var(--gray);
+    margin-bottom: 15px;
+    letter-spacing: 0.5px;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--warning);
+    animation: pulse 2s infinite;
+}
+
+.status-dot.connected {
+    background: var(--success);
+}
+
+.status-dot.disconnected {
+    background: var(--danger);
+}
+
+.status-text {
+    font-size: 12px;
+    color: var(--light);
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* ==================== NATIVE AD ==================== */
+.native-ad-container {
+    margin: 15px 20px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    min-height: 100px;
+}
+
+.ad-label {
+    font-size: 10px;
+    color: var(--gray);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+/* ==================== TAB NAVIGATION ==================== */
+.tab-navigation {
+    display: flex;
+    margin: 20px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 25px;
+    padding: 4px;
+    gap: 4px;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 12px 20px;
+    background: transparent;
+    border: none;
+    color: var(--white);
+    border-radius: 22px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.tab-btn.active {
+    background: var(--primary);
+    box-shadow: 0 4px 15px rgba(108, 99, 255, 0.4);
+}
+
+.tab-icon {
+    font-size: 18px;
+}
+
+/* ==================== TAB CONTENT ==================== */
+.tab-content {
+    display: none;
+    padding: 0 20px;
+    animation: fadeIn 0.3s ease;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==================== CARDS ==================== */
+.card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    transition: var(--transition);
+}
+
+.card:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.card-header {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--white);
+}
+
+/* ==================== PEER ID CARD ==================== */
+.peer-id-display {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 12px 15px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+}
+
+.peer-id-display code {
+    flex: 1;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--primary);
+    background: rgba(108, 99, 255, 0.1);
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    text-align: center;
+}
+
+.btn-icon {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: var(--white);
+    padding: 10px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: var(--transition);
+}
+
+.btn-icon:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.btn-icon:active {
+    transform: scale(0.95);
+}
+
+.qr-container {
+    text-align: center;
+    padding: 15px;
+    background: var(--white);
+    border-radius: 12px;
+}
+
+#qrCode {
+    display: inline-block;
+}
+
+#qrCode img {
+    display: block;
+    max-width: 180px;
+    height: auto;
+}
+
+.qr-hint {
+    margin-top: 10px;
+    font-size: 12px;
+    color: #666;
+}
+
+/* ==================== FILE UPLOAD AREA ==================== */
+.file-upload-area {
+    border: 2px dashed rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-bottom: 15px;
+}
+
+.file-upload-area:hover {
+    border-color: var(--primary);
+    background: rgba(108, 99, 255, 0.1);
+}
+
+.file-upload-area.dragover {
+    border-color: var(--success);
+    background: rgba(0, 200, 83, 0.1);
+}
+
+.upload-icon {
+    font-size: 48px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.upload-placeholder p {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.upload-placeholder small {
+    color: var(--gray);
+    font-size: 12px;
+}
+
+.selected-files {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 15px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    margin-bottom: 8px;
+}
+
+.file-item-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    min-width: 0;
+}
+
+.file-item-icon {
+    font-size: 24px;
+}
+
+.file-item-name {
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.file-item-size {
+    font-size: 12px;
+    color: var(--gray);
+}
+
+.file-item-remove {
+    background: none;
+    border: none;
+    color: var(--danger);
+    font-size: 18px;
+    cursor: pointer;
+    padding: 5px;
+}
+
+/* ==================== PROGRESS BAR ==================== */
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.progress-bar-container {
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary), var(--success));
+    border-radius: 4px;
+    width: 0%;
+    transition: width 0.3s ease;
+    position: relative;
+}
+
+.progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.progress-details {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--gray);
+}
+
+.transfer-speed {
+    text-align: center;
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--warning);
+}
+
+/* ==================== RECEIVE TAB ==================== */
+.room-code-input label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: var(--gray);
+}
+
+.input-with-button {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.input-with-button input {
+    flex: 1;
+    padding: 12px 15px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    color: var(--white);
+    font-size: 16px;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 1px;
+    transition: var(--transition);
+}
+
+.input-with-button input:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: rgba(108, 99, 255, 0.1);
+}
+
+.btn-primary {
+    padding: 12px 24px;
+    background: var(--primary);
+    color: var(--white);
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    white-space: nowrap;
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(108, 99, 255, 0.4);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.connection-status-display {
+    text-align: center;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+/* ==================== DOWNLOAD COMPLETE ==================== */
+.download-ready {
+    text-align: center;
+    padding: 20px;
+}
+
+.success-icon {
+    font-size: 48px;
+    margin-bottom: 15px;
+}
+
+.download-ready h3 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: var(--success);
+}
+
+.download-btn {
+    display: inline-block;
+    padding: 12px 24px;
+    background: var(--success);
+    color: var(--white);
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 600;
+    margin: 5px;
+    transition: var(--transition);
+}
+
+.download-btn:hover {
+    background: #00B34A;
+    transform: translateY(-2px);
+}
+
+/* ==================== BANNER AD ==================== */
+.banner-ad-container {
+    margin: 20px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    min-height: 50px;
+    text-align: center;
+}
+
+/* ==================== FOOTER ==================== */
+.app-footer {
+    padding: 25px 20px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.3);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-links {
+    margin-bottom: 15px;
+}
+
+.footer-links a {
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 14px;
+    transition: var(--transition);
+}
+
+.footer-links a:hover {
+    color: var(--white);
+}
+
+.footer-divider {
+    margin: 0 10px;
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.footer-copyright p {
+    font-size: 12px;
+    color: var(--gray);
+    margin-bottom: 5px;
+}
+
+.footer-tagline {
+    font-style: italic;
+}
+
+/* ==================== MODALS ==================== */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: var(--dark);
+    border-radius: var(--border-radius);
+    width: 90%;
+    max-width: 480px;
+    max-height: 80vh;
+    overflow-y: auto;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-header h2 {
+    font-size: 20px;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 28px;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: var(--transition);
+}
+
+.modal-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.modal-body h3 {
+    font-size: 16px;
+    margin: 15px 0 10px;
+    color: var(--primary);
+}
+
+.modal-body p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--gray);
+    margin-bottom: 10px;
+}
+
+.modal-body ul {
+    list-style: none;
+    padding-left: 20px;
+    margin-bottom: 15px;
+}
+
+.modal-body ul li {
+    font-size: 14px;
+    color: var(--gray);
+    margin-bottom: 5px;
+    position: relative;
+}
+
+.modal-body ul li::before {
+    content: '•';
+    color: var(--primary);
+    position: absolute;
+    left: -15px;
+}
+
+.last-updated {
+    margin-top: 20px;
+    font-style: italic;
+    font-size: 12px !important;
+}
+
+/* ==================== CONTACT FORM ==================== */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: var(--light);
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: var(--white);
+    font-size: 14px;
+    font-family: inherit;
+    transition: var(--transition);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.contact-info {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.contact-info p {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+/* ==================== TOAST ==================== */
+.toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--dark);
+    color: var(--white);
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-size: 14px;
+    z-index: 2000;
+    transition: transform 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.toast.show {
+    transform: translateX(-50%) translateY(0);
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 480px) {
+    .logo h1 {
+        font-size: 28px;
+    }
+    
+    .card {
+        padding: 15px;
+    }
+    
+    .input-with-button {
+        flex-direction: column;
+    }
+    
+    .btn-primary {
+        width: 100%;
+    }
+}
+
+/* ==================== SCROLLBAR ==================== */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
