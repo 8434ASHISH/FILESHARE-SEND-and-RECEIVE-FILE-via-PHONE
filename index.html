@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>FileShare P2P - Instant File Transfer</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="theme-color" content="#0a0e27">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="logo-icon">📡</div>
+                    <h1>FileShare</h1>
+                </div>
+                <div class="subtitle">P2P File Transfer</div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- QR Scanner Mode -->
+            <div class="mode" id="scannerMode">
+                <div class="mode-header">
+                    <h2>Scan QR Code</h2>
+                    <p>Scan code from desktop app to connect</p>
+                </div>
+                
+                <div class="qr-scanner-container">
+                    <div id="qrScanner" class="qr-scanner"></div>
+                    <div class="scanner-overlay"></div>
+                </div>
+
+                <div class="hint-box">
+                    <span class="hint-icon">💡</span>
+                    <p>Point your camera at the QR code to connect</p>
+                </div>
+
+                <button class="btn-secondary" id="manualEntryBtn">
+                    <span class="btn-icon">⌨️</span>
+                    Enter Code Manually
+                </button>
+            </div>
+
+            <!-- Manual Entry Mode -->
+            <div class="mode hidden" id="manualMode">
+                <div class="mode-header">
+                    <h2>Enter Room Code</h2>
+                    <p>9-character code from desktop</p>
+                </div>
+
+                <div class="form-group">
+                    <input 
+                        type="text" 
+                        id="roomCodeInput" 
+                        class="code-input" 
+                        placeholder="e.g., ABC123XYZ" 
+                        maxlength="9"
+                        autocomplete="off"
+                    >
+                </div>
+
+                <button class="btn-primary" id="connectManualBtn" disabled>
+                    <span class="btn-icon">🔗</span>
+                    Connect
+                </button>
+
+                <button class="btn-secondary" id="backToScannerBtn">
+                    <span class="btn-icon">📷</span>
+                    Back to Scanner
+                </button>
+            </div>
+
+            <!-- Connected Mode - Send -->
+            <div class="mode hidden" id="sendMode">
+                <div class="mode-header">
+                    <h2>Send Files</h2>
+                    <div class="connection-badge">
+                        <span class="status-dot"></span>
+                        Connected
+                    </div>
+                </div>
+
+                <!-- Drop Zone -->
+                <div class="drop-zone" id="mobileDropZone">
+                    <div class="drop-content">
+                        <div class="drop-icon">📁</div>
+                        <h3>Select Files</h3>
+                        <p>or drag to send</p>
+                    </div>
+                    <input type="file" id="mobileFileInput" multiple style="display: none;">
+                </div>
+
+                <!-- File List -->
+                <div id="mobileFileList" class="file-list"></div>
+
+                <!-- Transfer Progress -->
+                <div id="mobileSendProgress" class="progress-section hidden">
+                    <div class="progress-label">
+                        <span>Sending...</span>
+                        <span id="mobileSendPercent">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="mobileSendFill"></div>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="action-buttons">
+                    <button class="btn-primary" id="mobileSendBtn" disabled>
+                        <span class="btn-icon">✈️</span>
+                        Send Files
+                    </button>
+                    <button class="btn-secondary" id="disconnectBtn">
+                        <span class="btn-icon">❌</span>
+                        Disconnect
+                    </button>
+                </div>
+            </div>
+
+            <!-- Connected Mode - Receive -->
+            <div class="mode hidden" id="receiveMode">
+                <div class="mode-header">
+                    <h2>Receive Files</h2>
+                    <div class="connection-badge">
+                        <span class="status-dot"></span>
+                        Connected
+                    </div>
+                </div>
+
+                <!-- Waiting for Files -->
+                <div id="waitingSection" class="waiting-section">
+                    <div class="waiting-animation">
+                        <div class="pulse-ring"></div>
+                        <div class="pulse-ring"></div>
+                        <div class="pulse-ring"></div>
+                    </div>
+                    <p class="waiting-text">Waiting for files...</p>
+                </div>
+
+                <!-- Receiving Progress -->
+                <div id="receiveProgressSection" class="progress-section hidden">
+                    <div class="progress-label">
+                        <span id="receiveFileName">Receiving...</span>
+                        <span id="receivePercent">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="receiveFill"></div>
+                    </div>
+                </div>
+
+                <!-- Received Files -->
+                <div id="mobileReceivedList" class="file-list"></div>
+
+                <!-- Download Section -->
+                <div id="mobileDownloadSection" class="action-buttons hidden">
+                    <button class="btn-primary" id="mobileDownloadBtn">
+                        <span class="btn-icon">⬇️</span>
+                        Download Files
+                    </button>
+                    <button class="btn-secondary" id="newTransferBtn">
+                        <span class="btn-icon">♻️</span>
+                        New Transfer
+                    </button>
+                </div>
+
+                <!-- Disconnect -->
+                <button class="btn-secondary" id="disconnectReceiveBtn">
+                    <span class="btn-icon">❌</span>
+                    Disconnect
+                </button>
+            </div>
+        </main>
+
+        <!-- Ads Section -->
+        <div class="ads-section">
+            <p class="ads-title">Sponsored</p>
+            <iframe 
+                src="https://ad-slots.8434ashishranjan.workers.dev/" 
+                title="Ads"
+                allow="autoplay"
+                sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-presentation"
+            ></iframe>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-links">
+                <a href="pages/privacy.html">Privacy</a>
+                <span class="separator">•</span>
+                <a href="pages/terms.html">Terms</a>
+                <span class="separator">•</span>
+                <a href="pages/disclaimer.html">Disclaimer</a>
+                <span class="separator">•</span>
+                <a href="pages/contact.html">Contact</a>
+            </div>
+            <p class="footer-text">© 2026 FileShare P2P. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode-scanner/qrcode-scanner.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
