@@ -3,7 +3,7 @@
    ============================================ */
 
 const CONFIG = {
-    SIGNALING_SERVER: 'https://fileshare.8434ashishranjan.workers.dev/api',
+    SIGNALING_SERVER: 'https://fileshare-signaling.8434ashishranjan.workers.dev',
     MAX_FILE_SIZE: 5 * 1024 * 1024 * 1024, // 5GB
     CHUNK_SIZE: 64 * 1024, // 64KB chunks
 };
