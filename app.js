@@ -300,7 +300,7 @@ async function connectToRoom() {
             switchMode('receiveMode');
             
             // Request answer from signaling server
-            const result = await sendToSignalingServer('/join-room', { roomCode: code });
+            const result = await sendToSignalingServer('/api/join-room', { roomCode: code });
             if (result.answer) {
                 await state.peerConnection.setRemoteDescription(
                     new RTCSessionDescription(result.answer)
@@ -351,7 +351,7 @@ function createPeerConnection() {
     
     state.peerConnection.addEventListener('icecandidate', async (event) => {
         if (event.candidate) {
-            await sendToSignalingServer('/ice', {
+            await sendToSignalingServer('/api/ice', {
                 roomCode: state.roomCode,
                 candidate: event.candidate,
             });
